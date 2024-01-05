@@ -29,3 +29,5 @@ Route::apiResources([
     'advertisements' => AdvertisementController::class,
 ]);
 Route::get('/users/{id}/advertisements',[UserController::class, 'getUserAdvertisements']);
+Route::get('/{dormitory}/advertisements',[AdvertisementController::class, 'getAdvertisementsByDormitory']);
+Route::get('/{dormitory}/infos',[InfoController::class, 'getInfosByDormitory']);

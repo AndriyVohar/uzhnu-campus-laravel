@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\AdvertisementResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -13,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return UserResource::collection(User::all());
     }
 
     /**
@@ -21,15 +23,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(User $user)
     {
-        return User::findOrFail($id);
+        return new UserResource($user);
     }
 
     /**
@@ -56,6 +58,7 @@ class UserController extends Controller
     
         $advertisements = $user->advertisements;
     
-        return response()->json($advertisements);
+        // return AdvertisementResource::collection($advertisements);
+        return $advertisements;
     }
 }
