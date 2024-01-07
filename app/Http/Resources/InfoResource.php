@@ -18,7 +18,9 @@ class InfoResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s')
+            'dormitory'=>$this->dormitory,
+            'created_at' => $this->created_at->format('d-m-Y H:i'),
+            // 'created_at' => $this->created_at->format('Y-m-d H:i:s')
         ];
     }
 }

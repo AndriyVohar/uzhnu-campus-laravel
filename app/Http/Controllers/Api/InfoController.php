@@ -29,7 +29,7 @@ class InfoController extends Controller
             'dormitory'=>'required'
         ]);
         $info = Info::create($request->all());
-        return response(new InfoResource($info),201);
+        return response($info,201);
     }
 
     /**

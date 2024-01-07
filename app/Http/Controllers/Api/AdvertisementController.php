@@ -30,7 +30,7 @@ class AdvertisementController extends Controller
             'user_id' => 'required',
         ]);
         $advertisement = Advertisement::create($request->all());
-        return response(new AdvertisementResource($advertisement), 201);
+        return response($advertisement, 201);
     }
 
     /**
@@ -38,7 +38,7 @@ class AdvertisementController extends Controller
      */
     public function show($id)
     {
-        return new AdvertisementResource(Advertisement::findOrFail($id)->with('creator')->get());
+        return new AdvertisementResource(Advertisement::with('creator')->find($id));
     }
 
     /**
@@ -76,6 +76,4 @@ class AdvertisementController extends Controller
 
         return AdvertisementResource::collection($advertisements);
     }
-
-
 }

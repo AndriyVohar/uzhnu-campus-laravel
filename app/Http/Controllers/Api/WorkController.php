@@ -6,6 +6,7 @@ use App\Models\Work;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Resources\WorkResource;
 
 class WorkController extends Controller
 {
@@ -14,7 +15,7 @@ class WorkController extends Controller
      */
     public function index()
     {
-        return Work::all();
+        return WorkResource::collection(Work::query()->orderByDesc('id')->get());
     }
 
     /**
@@ -30,21 +31,21 @@ class WorkController extends Controller
             'description'=>'required'
         ]);
         $work = Work::create($request->all());
-        return $work;
+        return response($work,201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Work $work)
     {
-        return Work::findOrFail($id);
+        return new WorkResource($work);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Work $work)
     {
         $request->validate([
             'title'=>'required|max:50',
@@ -53,18 +54,16 @@ class WorkController extends Controller
             'salary'=>'required',
             'description'=>'required'
         ]);
-        $work = Work::findOrFail($id);
         $work->update($request->all());
-        return $work;
+        return new WorkResource($work);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Work $work)
     {
-        $work = Work::findOrFail($id);
         $work->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return response('', 204);
     }
 }

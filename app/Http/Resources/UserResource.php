@@ -23,8 +23,9 @@ class UserResource extends JsonResource
             'room' => $this->room,
             'phone' => $this->phone,
             'instagram'=>$this->instagram,
+            'telegram'=>$this->telegram,
             'role'=>$this->role,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s')
+            'created_at' => $this->created_at->format('d-m-Y H:i:s')
         ];
     }
 }
