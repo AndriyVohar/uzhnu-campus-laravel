@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('google_id');
             $table->string('email')->unique();
-            $table->string('fullName');
-            $table->string('imgURL');
-            $table->integer('dormitory');
-            $table->string('room');
-            $table->string('phone');
-            $table->string('instagram');
-            $table->string('telegram');
-            $table->string('role');
+            $table->string('name');
+            $table->mediumText('imgURL');
+            $table->tinyInteger('dormitory')->nullable();
+            $table->string('room',20)->nullable();
+            $table->string('phone',20)->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('telegram')->nullable();
+            $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

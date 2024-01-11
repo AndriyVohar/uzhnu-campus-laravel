@@ -24,8 +24,8 @@ class WorkController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required|max:50',
-            'tag'=>'required|max:20',
+            'title'=>'required|max:100',
+            'tag'=>'required|max:50',
             'imgURL'=>'required',
             'salary'=>'required',
             'description'=>'required'

@@ -47,8 +47,8 @@ class AdvertisementController extends Controller
     public function update(Request $request, Advertisement $advertisement)
     {
         $request->validate([
-            'title' => 'required|max:50',
-            'tag' => 'required|max:20',
+            'title' => 'required|max:100',
+            'tag' => 'required|max:50',
             'imgURL' => 'required',
         ]);
         $advertisement->update($request->all());

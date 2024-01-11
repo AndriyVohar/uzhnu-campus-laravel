@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('infos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->integer('dormitory');
+            $table->string('title',100); //to 100 symbols
+            $table->string('description',2000); //to 2000 symbols
+            $table->tinyInteger('dormitory'); //-127 to 127
             $table->timestamps();
         });
     }

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('tag');
-            $table->string('imgURL');
+            $table->string('title', 100);
+            $table->string('tag', 50);
+            $table->mediumText('imgURL'); //to 16 million symbols
             $table->integer('salary');
-            $table->string('description');
+            $table->string('description', 5000); //to 5000 symbols
             $table->timestamps();
         });
     }

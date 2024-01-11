@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('tag');
-            $table->string('imgURL');
+            $table->string('title', 100);
+            $table->string('tag',50);
+            $table->mediumText('imgURL');
             $table->foreignId('user_id')
                 ->constrained()
                 ->onUpdate('cascade')
