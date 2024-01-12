@@ -62,7 +62,7 @@ class UserController extends Controller
         return response()->json('', 204);
     }
     public function getUserAdvertisements($id) {
-        $user = User::where('google_id', $id)->first();
+        $user = User::find($id);
     
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -70,6 +70,6 @@ class UserController extends Controller
     
         $advertisements = $user->advertisements;
 
-        return $advertisements;
+        return AdvertisementResource::collection($advertisements);
     }
 }
