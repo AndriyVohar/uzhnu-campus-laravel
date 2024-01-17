@@ -72,7 +72,7 @@ class AdvertisementController extends Controller
                     $query->where('dormitory', $dormitory);
                 }
             ])
-            ->get();
+            ->paginate(10);
 
         return AdvertisementResource::collection($advertisements);
     }

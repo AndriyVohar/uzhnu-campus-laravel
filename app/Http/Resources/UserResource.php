@@ -26,7 +26,7 @@ class UserResource extends JsonResource
             'instagram'=>$this->instagram,
             'telegram'=>$this->telegram,
             'role'=>$this->role,
-            'created_at' => $this->created_at->format('d-m-Y H:i')
+            'created_at' => $this->created_at->format('d.m.Y H:i')
         ];
     }
 }

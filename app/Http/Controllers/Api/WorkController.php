@@ -15,7 +15,7 @@ class WorkController extends Controller
      */
     public function index()
     {
-        return WorkResource::collection(Work::query()->orderByDesc('id')->get());
+        return WorkResource::collection(Work::query()->orderByDesc('id')->paginate(10));
     }
 
     /**
