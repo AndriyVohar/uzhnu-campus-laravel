@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\AdvertisementResource;
+use App\Http\Resources\AdvertisementBriefResource;
 
 class AdvertisementController extends Controller
 {
@@ -15,7 +16,7 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-        return AdvertisementResource::collection(Advertisement::query()->orderBy('id', 'desc')->with('creator')->get());
+        return AdvertisementBriefResource::collection(Advertisement::query()->orderBy('id', 'desc')->with('creator')->get());
     }
 
     /**
@@ -67,13 +68,13 @@ class AdvertisementController extends Controller
     public function getAdvertisementsByDormitory($dormitory)
     {
         $advertisements = Advertisement::orderBy('id', 'desc')
-            ->with([
-                'creator' => function ($query) use ($dormitory) {
-                    $query->where('dormitory', $dormitory);
-                }
-            ])
-            ->paginate(10);
+            ->whereHas('creator', function ($query) use ($dormitory) {
+                $query->where('dormitory', $dormitory);
+            })->paginate(10);
 
-        return AdvertisementResource::collection($advertisements);
+        return response()->json([
+            'data' => AdvertisementBriefResource::collection($advertisements),
+            'last_page' => $advertisements->lastPage(),
+        ]);
     }
 }

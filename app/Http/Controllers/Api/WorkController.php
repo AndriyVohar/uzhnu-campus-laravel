@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\WorkResource;
+use App\Http\Resources\WorkBriefResource;
 
 class WorkController extends Controller
 {
@@ -15,7 +16,11 @@ class WorkController extends Controller
      */
     public function index()
     {
-        return WorkResource::collection(Work::query()->orderByDesc('id')->paginate(10));
+        $works = Work::query()->orderByDesc('id')->paginate(10);
+        return response()->json([
+            'data' => WorkBriefResource::collection($works),
+            'last_page' => $works->lastPage(),
+        ]);
     }
 
     /**

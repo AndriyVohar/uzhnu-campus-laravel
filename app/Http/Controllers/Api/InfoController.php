@@ -15,7 +15,6 @@ class InfoController extends Controller
     public function index()
     {
         return InfoResource::collection(Info::query()->orderByDesc('id')->get());
-        // TODO: ->paginate();
     }
 
     /**

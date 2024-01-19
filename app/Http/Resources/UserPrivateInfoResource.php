@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdvertisementResource extends JsonResource
+class UserPrivateInfoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,16 @@ class AdvertisementResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'tag' => $this->tag,
+            'email' => $this->email,
+            'name' => $this->name,
             'imgURL' => $this->imgURL,
-            'creator'=>new UserPublicInfoResource($this->creator),
+            'google_id' => $this->google_id,
+            'dormitory' => $this->dormitory,
+            'room' => $this->room,
+            'phone' => $this->phone,
+            'instagram'=>$this->instagram,
+            'telegram'=>$this->telegram,
+            'role'=>$this->role,
             'created_at' => $this->created_at->format('d.m.y H:i')
         ];
     }

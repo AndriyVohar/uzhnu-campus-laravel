@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\Http\Resources\AdvertisementResource;
+use App\Http\Resources\UserPrivateInfoResource;
+use App\Http\Resources\AdvertisementBriefResource;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return UserPrivateInfoResource::collection(User::all());
     }
 
     /**
@@ -38,7 +38,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('google_id', $id)->first();
-        return new UserResource($user);
+        return new UserPrivateInfoResource($user);
     }
 
     /**
@@ -48,7 +48,7 @@ class UserController extends Controller
     {
         $user = User::where('google_id', $id)->first();
         $user->update($request->all());
-        return new UserResource($user);
+        return response()->json($user, 200);
     }
 
     /**
@@ -70,6 +70,6 @@ class UserController extends Controller
     
         $advertisements = $user->advertisements;
 
-        return AdvertisementResource::collection($advertisements);
+        return AdvertisementBriefResource::collection($advertisements);
     }
 }
