@@ -20,7 +20,7 @@ class AdvertisementResource extends JsonResource
             'tag' => $this->tag,
             'imgURL' => $this->imgURL,
             'creator'=>new UserPublicInfoResource($this->creator),
-            'created_at' => $this->created_at->format('d.m.y H:i')
+            'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y H:i')
         ];
     }
 }

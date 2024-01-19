@@ -21,7 +21,7 @@ class WorkResource extends JsonResource
             'imgURL' => $this->imgURL,
             'salary' => $this->salary,
             'description' => $this->description,
-            'created_at' => $this->created_at->format('d.m.y'),
+            'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y'),
             // 'created_at' => $this->created_at->format('Y-m-d H:i:s')
         ];
     }

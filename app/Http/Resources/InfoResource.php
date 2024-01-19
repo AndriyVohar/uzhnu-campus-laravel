@@ -19,7 +19,7 @@ class InfoResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'dormitory'=>$this->dormitory,
-            'created_at' => $this->created_at->format('d.m.y H:i'),
+            'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y H:i'),
             // 'created_at' => $this->created_at->format('Y-m-d H:i:s')
         ];
     }

@@ -20,7 +20,7 @@ class WorkBriefResource extends JsonResource
             'tag' => $this->tag,
             'imgURL' => $this->imgURL,
             'salary' => $this->salary,
-            'created_at' => $this->created_at->format('d.m.y'),
+            'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y'),
         ];
     }
 }

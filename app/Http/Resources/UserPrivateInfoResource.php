@@ -26,7 +26,7 @@ class UserPrivateInfoResource extends JsonResource
             'instagram'=>$this->instagram,
             'telegram'=>$this->telegram,
             'role'=>$this->role,
-            'created_at' => $this->created_at->format('d.m.y H:i')
+            'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y H:i')
         ];
     }
 }
