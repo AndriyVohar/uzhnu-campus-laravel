@@ -75,6 +75,6 @@ class AdvertisementController extends Controller
         return response()->json([
             'data' => AdvertisementBriefResource::collection($advertisements),
             'last_page' => $advertisements->lastPage(),
-        ]);
+        ],200);
     }
 }

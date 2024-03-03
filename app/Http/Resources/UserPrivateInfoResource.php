@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Role;
 
 class UserPrivateInfoResource extends JsonResource
 {
@@ -14,6 +15,7 @@ class UserPrivateInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $role = Role::where('id',$this->role_id)->first();
         return [
             'id' => $this->id,
             'email' => $this->email,
@@ -25,7 +27,7 @@ class UserPrivateInfoResource extends JsonResource
             'phone' => $this->phone,
             'instagram'=>$this->instagram,
             'telegram'=>$this->telegram,
-            'role'=>$this->role,
+            'role'=>$role->role,
             'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y H:i')
         ];
     }

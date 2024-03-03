@@ -15,6 +15,13 @@ class User extends Authenticatable
     public function advertisements() {
         return $this->hasMany(Advertisement::class, 'user_id');
     }
+    public function washings(){
+        return $this->hasMany(Washing::class,'user_id');
+    }
+    public function workerTasks()
+    {
+        return $this->hasMany(WorkerTask::class, 'user_id');
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +37,7 @@ class User extends Authenticatable
         'phone',
         'instagram',
         'telegram',
-        'role'
+        'role_id'
     ];
 
     /**

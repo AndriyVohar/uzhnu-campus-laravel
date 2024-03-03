@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\InfoController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\WashingController;
 use App\Http\Controllers\Api\WorkController;
 use App\Http\Controllers\Api\AdvertisementController;
+use App\Http\Controllers\Api\WorkerTaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +29,11 @@ Route::apiResources([
     'users' => UserController::class,
     'works' => WorkController::class,
     'advertisements' => AdvertisementController::class,
+    'washings'=>WashingController::class,
+    'worker-tasks'=>WorkerTaskController::class,
 ]);
 Route::get('/users/{id}/advertisements',[UserController::class, 'getUserAdvertisements']);
 Route::get('/{dormitory}/advertisements',[AdvertisementController::class, 'getAdvertisementsByDormitory']);
 Route::get('/{dormitory}/infos',[InfoController::class, 'getInfosByDormitory']);
+Route::get('/washings/{dormitory}/{washing_machine_num}/{day}',[WashingController::class, 'getWashingDay']);
+Route::get('/{dormitory}/worker-tasks/{worker}',[WorkerTaskController::class, 'getWorkerTasksByDormitory']);

@@ -10,11 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('advertisements', function (Blueprint $table) {
+        Schema::create('washings', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100);
-            $table->string('tag',50);
-            $table->mediumText('imgURL');
+            $table->date('day');
+            $table->tinyInteger('dormitory');
+            $table->tinyInteger('washing_machine_num');
+            $table->tinyInteger('hour');
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onUpdate('cascade')
@@ -23,11 +24,12 @@ return new class extends Migration {
         });
     }
 
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('advertisements');
+        Schema::dropIfExists('washing');
     }
 };

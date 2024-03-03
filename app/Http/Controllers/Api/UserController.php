@@ -68,7 +68,7 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
     
-        $advertisements = $user->advertisements;
+        $advertisements = $user->advertisements()->orderByDesc('id')->get();
 
         return AdvertisementBriefResource::collection($advertisements);
     }
