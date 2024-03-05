@@ -18,6 +18,7 @@ class WorkerTaskResource extends JsonResource
             'id'=>$this->id,
             'description'=>$this->description,
             'creator' => new UserDormitoryInformationResource($this->creator),
+            'created_at'=>$this->created_at->setTimezone('Europe/Kiev')->format('d.m.y H:i'),
         ];
     }
 }
