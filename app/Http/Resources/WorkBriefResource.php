@@ -21,6 +21,7 @@ class WorkBriefResource extends JsonResource
             'imgURL' => $this->imgURL,
             'salary' => $this->salary,
             'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y'),
+            'status'=> $this->status
         ];
     }
 }

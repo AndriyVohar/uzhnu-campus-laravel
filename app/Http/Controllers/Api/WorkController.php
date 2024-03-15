@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Work;
+use App\Models\User;
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\WorkResource;
 use App\Http\Resources\WorkBriefResource;
+use Illuminate\Support\Arr;
 
 class WorkController extends Controller
 {
@@ -16,7 +19,7 @@ class WorkController extends Controller
      */
     public function index()
     {
-        $works = Work::query()->orderByDesc('id')->paginate(10);
+        $works = Work::orderByDesc('id')->where('status',1)->paginate(10);
         return response()->json([
             'data' => WorkBriefResource::collection($works),
             'last_page' => $works->lastPage(),
@@ -50,17 +53,26 @@ class WorkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Work $work)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'title'=>'required|max:50',
-            'tag'=>'required|max:20',
-            'imgURL'=>'required',
-            'salary'=>'required',
-            'description'=>'required'
-        ]);
-        $work->update($request->all());
-        return new WorkResource($work);
+        $work = Work::findOrFail($id);
+        if($request->status==1){
+            $user = User::findOrFail($request->user_id); 
+            $role = Role::findOrFail($user->role_id);  
+            if($role->role == 'commandant'||$role->role == 'admin'){
+                $work->update(['status'=>$request->status]);
+                return response()->json($work,200);
+            }
+        }
+        // $request->validate([
+        //     'title'=>'required|max:50',
+        //     'tag'=>'required|max:20',
+        //     'imgURL'=>'required',
+        //     'salary'=>'required',
+        //     'description'=>'required'
+        // ]);
+        // $work->update($request->all());
+        // return new WorkResource($work);
     }
 
     /**
@@ -70,5 +82,10 @@ class WorkController extends Controller
     {
         $work->delete();
         return response('', 204);
+    }
+
+    public function getWorksToApprove(){
+        $works = Work::where('status',0)->orderByDesc('id')->get();
+        return response()->json(['data' => WorkBriefResource::collection($works)], 200);
     }
 }

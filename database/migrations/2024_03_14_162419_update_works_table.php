@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('works', function (Blueprint $table) {
+            $table->boolean('status')->default(0);
+        });
     }
 
     /**

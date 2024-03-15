@@ -24,6 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/works/approve',[WorkController::class,'getWorksToApprove']);
+Route::get('/users/{id}/advertisements',[UserController::class, 'getUserAdvertisements']);
+Route::get('/{dormitory}/advertisements',[AdvertisementController::class, 'getAdvertisementsByDormitory']);
+Route::get('/{dormitory}/advertisements/approve',[AdvertisementController::class, 'getAdvertisementsByDormitoryApprove']);
+Route::get('/{dormitory}/infos',[InfoController::class, 'getInfosByDormitory']);
+Route::get('/washings/{dormitory}/{washing_machine_num}/{day}',[WashingController::class, 'getWashingDay']);
+Route::get('/{dormitory}/worker-tasks/{worker}',[WorkerTaskController::class, 'getWorkerTasksByDormitory']);
 Route::apiResources([
     'infos' => InfoController::class,
     'users' => UserController::class,
@@ -32,8 +39,3 @@ Route::apiResources([
     'washings'=>WashingController::class,
     'worker-tasks'=>WorkerTaskController::class,
 ]);
-Route::get('/users/{id}/advertisements',[UserController::class, 'getUserAdvertisements']);
-Route::get('/{dormitory}/advertisements',[AdvertisementController::class, 'getAdvertisementsByDormitory']);
-Route::get('/{dormitory}/infos',[InfoController::class, 'getInfosByDormitory']);
-Route::get('/washings/{dormitory}/{washing_machine_num}/{day}',[WashingController::class, 'getWashingDay']);
-Route::get('/{dormitory}/worker-tasks/{worker}',[WorkerTaskController::class, 'getWorkerTasksByDormitory']);

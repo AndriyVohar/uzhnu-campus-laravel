@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Advertisement;
+use App\Models\User;
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Resources\AdvertisementResource;
 use App\Http\Resources\AdvertisementBriefResource;
+use Illuminate\Support\Arr;
 
 class AdvertisementController extends Controller
 {
@@ -45,15 +47,25 @@ class AdvertisementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Advertisement $advertisement)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => 'required|max:100',
-            'tag' => 'required|max:50',
-            'imgURL' => 'required',
-        ]);
-        $advertisement->update($request->all());
-        return new AdvertisementResource($advertisement);
+        $advertisement = Advertisement::findOrFail($id);
+        if($request->status==1){
+            $user = User::findOrFail($request->user_id); 
+            $role = Role::findOrFail($user->role_id);  
+            if($role->role == 'commandant'||$role->role == 'admin'){
+                $advertisement->update(['status'=>$request->status]);        
+                return response()->json($advertisement,200);
+            }
+        }else{
+            $request->validate([
+                'title' => 'required|max:100',
+                'tag' => 'required|max:50',
+                'imgURL' => 'required',
+            ]);
+            $advertisement->update(array_merge($request->all(),['status'=>0]));
+            return response()->json($advertisement,200);
+        }
     }
 
     /**
@@ -70,11 +82,21 @@ class AdvertisementController extends Controller
         $advertisements = Advertisement::orderBy('id', 'desc')
             ->whereHas('creator', function ($query) use ($dormitory) {
                 $query->where('dormitory', $dormitory);
-            })->paginate(10);
+            })->where('status',1)->paginate(10);
 
         return response()->json([
             'data' => AdvertisementBriefResource::collection($advertisements),
             'last_page' => $advertisements->lastPage(),
+        ],200);
+    }
+    public function getAdvertisementsByDormitoryApprove($dormitory)
+    {
+        $advertisements = Advertisement::whereHas('creator', function ($query) use ($dormitory) {
+                $query->where('dormitory', $dormitory);
+            })->where('status',0)->get();
+
+        return response()->json([
+            'data' => AdvertisementBriefResource::collection($advertisements),
         ],200);
     }
 }

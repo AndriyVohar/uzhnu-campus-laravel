@@ -19,6 +19,7 @@ class Work extends Model
         'tag',
         'imgURL',
         'salary',
-        'description'
+        'description',
+        'status'
     ];
 }

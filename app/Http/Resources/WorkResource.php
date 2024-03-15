@@ -22,6 +22,7 @@ class WorkResource extends JsonResource
             'salary' => $this->salary,
             'description' => $this->description,
             'created_at' => $this->created_at->setTimezone('Europe/Kiev')->format('d.m.y'),
+            'status'=> $this->status
             // 'created_at' => $this->created_at->format('Y-m-d H:i:s')
         ];
     }

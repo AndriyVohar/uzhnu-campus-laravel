@@ -13,7 +13,8 @@ class Advertisement extends Model
       'title',
       'tag',
       'imgURL',
-      'user_id' 
+      'user_id',
+      'status',
     ];
     public function creator() {
         return $this->belongsTo(User::class, 'user_id');
