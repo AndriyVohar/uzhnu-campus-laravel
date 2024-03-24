@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('telegram')->nullable();
             $table->foreignId('role_id')->nullable()->constrained('roles')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }

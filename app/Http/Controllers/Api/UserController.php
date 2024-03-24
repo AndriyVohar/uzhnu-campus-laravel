@@ -37,9 +37,11 @@ class UserController extends Controller
                     "google_id"=>$request->google_id,
                     "imgURL"=>$request->imgURL,
                     "email"=>$request->email,
+                    "status"=>0
                 ]);
             }else{
-                $user = User::create($request->all());
+                $role = Role::where('role','admin')->first();
+                $user = User::create(array_merge($request->all(),["role_id"=>$role->id,'status'=>1]));
             }
             return response($user,201);
         }
@@ -60,7 +62,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::where('google_id', $id)->first();
-        $user->update($request->all());
+        $user->update(array_merge($request->all(),['status'=>0]));
         return response()->json($user, 200);
     }
 

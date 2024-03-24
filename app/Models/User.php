@@ -22,6 +22,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(WorkerTask::class, 'user_id');
     }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -38,7 +42,8 @@ class User extends Authenticatable
         'phone',
         'instagram',
         'telegram',
-        'role_id'
+        'role_id',
+        'status'
     ];
 
     /**
