@@ -31,6 +31,7 @@ class User extends Authenticatable
         'google_id',
         'name',
         'email',
+        'password',
         'imgURL',
         'dormitory',
         'room',

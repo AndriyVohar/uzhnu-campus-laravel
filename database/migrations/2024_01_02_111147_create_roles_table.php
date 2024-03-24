@@ -15,6 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('role',50);
         });
+        DB::table('roles')->insert([
+            ['role' => 'admin'],
+            ['role' => 'commandant'],
+            ['role' => 'student'],
+            ['role' => 'joiner'],
+            ['role' => 'plumber'],
+            ['role' => 'electrician'],
+        ]);
     }
 
     /**

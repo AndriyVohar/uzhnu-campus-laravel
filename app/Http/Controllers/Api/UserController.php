@@ -7,6 +7,7 @@ use App\Http\Resources\UserPrivateInfoResource;
 use App\Http\Resources\AdvertisementBriefResource;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -27,7 +28,19 @@ class UserController extends Controller
         if($response){
             return response($response,201);
         }else {
-            $user = User::create($request->all());
+            if($request->role){
+                $role = Role::where('role',$request->role)->first();
+                
+                $user = User::create([
+                    "role_id"=>$role->id,
+                    "name"=>$request->name,
+                    "google_id"=>$request->google_id,
+                    "imgURL"=>$request->imgURL,
+                    "email"=>$request->email,
+                ]);
+            }else{
+                $user = User::create($request->all());
+            }
             return response($user,201);
         }
     }

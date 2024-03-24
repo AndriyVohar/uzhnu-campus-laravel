@@ -16,9 +16,10 @@ return new class extends Migration {
             $table->string('tag',50);
             $table->mediumText('imgURL');
             $table->foreignId('user_id')
-                ->constrained('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            ->constrained('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

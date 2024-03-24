@@ -18,6 +18,7 @@ return new class extends Migration
             $table->mediumText('imgURL'); //to 16 million symbols
             $table->integer('salary');
             $table->string('description', 5000); //to 5000 symbols
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

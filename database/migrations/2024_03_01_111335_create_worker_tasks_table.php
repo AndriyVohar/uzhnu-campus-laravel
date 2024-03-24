@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('worker_tasks', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('worker_id')->constrained('roles');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('worker_id')->constrained('roles')->onDelete('cascade');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('google_id');
+            $table->string('google_id')->nullable();
             $table->string('email')->unique();
+            $table->string('password')->nullable();
+            $table->rememberToken();
             $table->string('name');
-            $table->mediumText('imgURL');
+            $table->mediumText('imgURL')->nullable();
             $table->tinyInteger('dormitory')->nullable();
             $table->string('room',20)->nullable();
             $table->string('phone',20)->nullable();
             $table->string('instagram')->nullable();
             $table->string('telegram')->nullable();
-            $table->string('role')->nullable();
-            $table->rememberToken();
+            $table->foreignId('role_id')->nullable()->constrained('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,5 +35,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
+            $table->dropColumn('role_id');
+        });
     }
 };
