@@ -24,27 +24,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     { 
-        $response = User::where('google_id', $request->google_id)->first();
-        if($response){
-            return response($response,201);
-        }else {
-            if($request->role){
-                $role = Role::where('role',$request->role)->first();
+        // $response = User::where('google_id', $request->google_id)->first();
+        // if($response){
+        //     return response($response,201);
+        // }else {
+        //     if($request->role){
+        //         $role = Role::where('role',$request->role)->first();
                 
-                $user = User::create([
-                    "role_id"=>$role->id,
-                    "name"=>$request->name,
-                    "google_id"=>$request->google_id,
-                    "imgURL"=>$request->imgURL,
-                    "email"=>$request->email,
-                    "status"=>0
-                ]);
-            }else{
-                $role = Role::where('role','admin')->first();
-                $user = User::create(array_merge($request->all(),["role_id"=>$role->id,'status'=>1]));
-            }
-            return response($user,201);
-        }
+        //         $user = User::create([
+        //             "role_id"=>$role->id,
+        //             "name"=>$request->name,
+        //             "google_id"=>$request->google_id,
+        //             "imgURL"=>$request->imgURL,
+        //             "email"=>$request->email,
+        //             "status"=>0
+        //         ]);
+        //     }else{
+        //         $role = Role::where('role','commandant')->first();
+        //         $user = User::create(array_merge($request->all(),["role_id"=>$role->id,'status'=>1]));
+        //     }
+        //     return response($user,201);
+        // }
     }
 
     /**
